@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.springboot.productAPIService.dto.ProductDto;
 import com.springboot.productAPIService.entity.Category;
 import com.springboot.productAPIService.entity.Product;
+import com.springboot.productAPIService.exception.CategoryNotFoundException;
+import com.springboot.productAPIService.exception.ProductNotFoundException;
 import com.springboot.productAPIService.mapper.ProductMapper;
 import com.springboot.productAPIService.repository.CategoryRepository;
 import com.springboot.productAPIService.repository.ProductRepository;
@@ -23,7 +25,7 @@ public class ProductService {
 	private CategoryRepository categoryRepo;
 	
 	public ProductDto createProduct(ProductDto productdto) {
-		Category category=categoryRepo.findById(productdto.getCategoryId()).orElseThrow(()-> new RuntimeException("Category not found "));
+		Category category=categoryRepo.findById(productdto.getCategoryId()).orElseThrow(()-> new CategoryNotFoundException("Category "+productdto.getCategoryId()+" not found "));
 		Product product= ProductMapper.toProductEntity(productdto, category);
 		product=productRepo.save(product);
 		return ProductMapper.toProductDto(product);	
@@ -34,13 +36,13 @@ public class ProductService {
 		}
 	
 	public ProductDto getById(Long id) {
-		Product product=productRepo.findById(id).orElseThrow(()->new RuntimeException("Product Not Found"));
+		Product product=productRepo.findById(id).orElseThrow(()->new ProductNotFoundException("Product "+id+" Not Found"));
 		return ProductMapper.toProductDto(product);
 	}
 	
 	public ProductDto updateById(Long id,ProductDto productdto) {
-		Product product=productRepo.findById(id).orElseThrow(()->new RuntimeException("Product Not Found"));
-		Category category=categoryRepo.findById(productdto.getCategoryId()).orElseThrow(()->new RuntimeException("Category Not Found"));
+		Product product=productRepo.findById(id).orElseThrow(()->new ProductNotFoundException("Product "+id+" Not Found"));
+		Category category=categoryRepo.findById(productdto.getCategoryId()).orElseThrow(()->new CategoryNotFoundException("Category "+productdto.getCategoryId()+" Not Found"));
 		
 		product.setProductName(productdto.getProductName());
 		product.setDescription(productdto.getDescription());
