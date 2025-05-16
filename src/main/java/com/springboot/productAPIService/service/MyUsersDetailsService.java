@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.productAPIService.entity.UsersDetails;
 import com.springboot.productAPIService.repository.UserRepository;
+import com.springboot.productAPIService.security.UserPrincipal;
 
 @Service
 public class MyUsersDetailsService implements UserDetailsService {
@@ -29,12 +30,7 @@ public class MyUsersDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UsersDetails> users=userRepo.findByUsername(username);
 		if(users.isPresent()) {
-			UsersDetails u=users.get();
-			return User.builder()
-					.username(u.getUsername())
-					.password(u.getPassword())
-					.roles(u.getRoles())
-					.build();
+			return new UserPrincipal(users.get());
 		}
 		else{
 			 throw new UsernameNotFoundException("Username not found");
