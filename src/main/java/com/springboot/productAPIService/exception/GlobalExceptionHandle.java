@@ -23,6 +23,11 @@ public class GlobalExceptionHandle {
 	public ResponseEntity<String> handleProductNotFound(ProductNotFoundException ex){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<String> handleGloablException(Exception ex){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+	}
 
 
 }

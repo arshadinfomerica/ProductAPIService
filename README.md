@@ -22,6 +22,8 @@ Spring Boot 3.x
 
 Spring Data JPA
 
+Spring Security
+
 MySQL
 
 Lombok for cleaner code
