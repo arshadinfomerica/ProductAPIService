@@ -7,12 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.springboot.productAPIService.entity.UsersDetails;
+import com.springboot.productAPIService.entity.UsersTable;
 
 public class UserPrincipal implements UserDetails{
 	
-	private UsersDetails usersDetails;
-	public UserPrincipal(UsersDetails usersDetails) {
+	private UsersTable usersDetails;
+	public UserPrincipal(UsersTable usersDetails) {
 		this.usersDetails=usersDetails;
 		
 	}
