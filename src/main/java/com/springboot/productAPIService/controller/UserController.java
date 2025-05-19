@@ -54,9 +54,7 @@ public class UserController {
 		
 		UserDetails userDetails= userService.loadUserByUsername(user.getUsername());
 		
-		String t= jwtUtil.generateToken(userDetails.getUsername(), roles);
-		System.out.print(t);
-		return t;
+		return jwtUtil.generateToken(userDetails.getUsername(), roles);
 		
 	}
 
