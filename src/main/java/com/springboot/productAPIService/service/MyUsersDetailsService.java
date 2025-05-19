@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.springboot.productAPIService.entity.UsersDetails;
+import com.springboot.productAPIService.entity.UsersTable;
 import com.springboot.productAPIService.repository.UserRepository;
 import com.springboot.productAPIService.security.UserPrincipal;
 
@@ -22,13 +22,13 @@ public class MyUsersDetailsService implements UserDetailsService {
 	
 	
 	
-	public UsersDetails createUser(UsersDetails userDetails) {
+	public UsersTable createUser(UsersTable userDetails) {
 		return userRepo.save(userDetails);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UsersDetails> users=userRepo.findByUsername(username);
+		Optional<UsersTable> users=userRepo.findByUsername(username);
 		if(users.isPresent()) {
 			return new UserPrincipal(users.get());
 		}
