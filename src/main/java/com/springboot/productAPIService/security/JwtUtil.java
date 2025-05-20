@@ -1,10 +1,11 @@
 package com.springboot.productAPIService.security;
 
 import java.security.Key;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -17,8 +18,13 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 	
 	
-	@Value("${jwt.secret}")
-	private String secretKey;
+	private static String secretKey;
+    JwtUtil(){
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[32];
+        random.nextBytes(key);
+        secretKey = Base64.getEncoder().encodeToString(key);
+    }
 
 	public String generateToken(String username,List<String> role) {
 		
