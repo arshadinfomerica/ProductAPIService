@@ -48,7 +48,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestBody UserDto user) {
 		Authentication auth= authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(auth);
+//		SecurityContextHolder.getContext().setAuthentication(auth);
 		List<String> roles=auth.getAuthorities()
 		.stream().map(GrantedAuthority::getAuthority).toList();
 		
